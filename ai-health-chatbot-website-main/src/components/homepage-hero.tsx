@@ -98,7 +98,7 @@ export default function HomepageHero({
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {})
         },
-        body: JSON.stringify({ messages: [...messages, { role: "user", content: text }] })
+        body: JSON.stringify({ message: text })
       });
 
       const data = await res.json();
@@ -106,7 +106,7 @@ export default function HomepageHero({
         throw new Error(data?.error || "Failed to get response");
       }
 
-      const reply: string = data?.reply || "I'm here to help with health questions.";
+      const reply: string = data?.text || "I'm here to help with health questions.";
       const fups: string[] = Array.isArray(data?.followUps) ? data.followUps : [];
       const yesNo: string | null = data?.yesNo?.question || null;
 
@@ -114,7 +114,7 @@ export default function HomepageHero({
       setFollowUps(fups.slice(0, 3));
       setYesNoQ(yesNo);
     } catch (err) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I couldn't reach the health service. Please try again." }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I am having trouble connecting to the health service. Please try again later." }]);
     } finally {
       setLoading(false);
     }
@@ -253,10 +253,10 @@ export default function HomepageHero({
                   {yesNoQ &&
                 <div className="flex flex-wrap items-center gap-2">
                       <span className="text-xs text-muted-foreground">{yesNoQ}</span>
-                      <Button size="xs" variant="secondary" onClick={(e) => handleSend(e, "Yes")}>
+                      <Button size="sm" variant="secondary" onClick={(e) => handleSend(e, "Yes")}>
                         Yes
                       </Button>
-                      <Button size="xs" variant="secondary" onClick={(e) => handleSend(e, "No")}>
+                      <Button size="sm" variant="secondary" onClick={(e) => handleSend(e, "No")}>
                         No
                       </Button>
                     </div>
@@ -264,7 +264,7 @@ export default function HomepageHero({
                   {followUps && followUps.length > 0 &&
                 <div className="flex flex-wrap gap-2">
                       {followUps.map((q, idx) =>
-                  <Button key={idx} size="xs" variant="outline" onClick={(e) => handleSend(e, q)}>
+                  <Button key={idx} size="sm" variant="outline" onClick={(e) => handleSend(e, q)}>
                           {q}
                         </Button>
                   )}
