@@ -1,2 +1,6 @@
 [build]
-  base = "ai-health-chatbot-website-main"
+  command = "next build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

@@ -1,0 +1,33 @@
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[[plugins]]
+origin = "default"
+package = "@netlify/plugin-nextjs"
+
+[plugins.inputs]
+
+[build]
+publish = "c:\\Users\\ROG STRIX\\OneDrive\\ドキュメント\\GitHub\\SIH_Multilingual-AI-chatbot\\ai-health-chatbot-website-main\\.next"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "c:\\Users\\ROG STRIX\\OneDrive\\ドキュメント\\GitHub\\SIH_Multilingual-AI-chatbot\\ai-health-chatbot-website-main"
+command = "next build"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
