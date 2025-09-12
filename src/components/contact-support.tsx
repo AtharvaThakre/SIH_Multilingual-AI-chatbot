@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo, useState } from "react"
-import { Mail, Phone, QrCode, Languages, MessageCircle, CircleQuestionMark, Mailbox, PhoneCall } from "lucide-react"
+import { Mail, Phone, QrCode, Languages, MessageCircle, CircleQuestionMark, Mailbox, PhoneCall, MapPin, Clock, Shield, Globe, Star, Send, CheckCircle } from "lucide-react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Badge } from "@/components/ui/badge"
 
 type ContactSupportProps = {
   className?: string
@@ -86,196 +87,404 @@ export default function ContactSupport({
   return (
     <section
       className={cn(
-        "w-full max-w-full",
+        "w-full max-w-full relative",
         highContrast ? "contrast-125" : "",
         largeText ? "text-[17px] sm:text-[18px]" : "text-base",
         className
       )}
       aria-label="Contact and Support"
     >
-      <div className="grid gap-6">
-        <header className="space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Contact & Support</h2>
-          <p className="text-muted-foreground max-w-prose">
-            We’re here to help. Choose a method that works best for you. For limited internet, phone and WhatsApp are available.
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 pointer-events-none" />
+      
+      <div className="relative z-10 grid gap-8">
+        {/* Enhanced Header */}
+        <header className="text-center space-y-4 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            <MessageCircle className="h-4 w-4" />
+            24/7 Support Available
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            Get in Touch
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            We're here to help you every step of the way. Choose your preferred method to connect with our support team.
           </p>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-2 min-w-0">
-          <Card className="bg-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageCircle className="h-5 w-5 text-primary" aria-hidden="true" />
-                Send us a message
-              </CardTitle>
-              <CardDescription>Fill in the form and our team will reply by your preferred method.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={onSubmit} className="space-y-4" noValidate>
-                <div className="grid gap-3">
-                  <Label htmlFor="name">Full name</Label>
-                  <Input id="name" name="name" placeholder="Your name" required aria-required="true" className="bg-card" />
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="contact">Phone or email</Label>
-                  <Input
-                    id="contact"
-                    name="contact"
-                    placeholder="e.g., +1 555 000 1234 or you@example.org"
-                    inputMode="email"
-                    className="bg-card"
-                    required
-                    aria-required="true"
-                  />
-                </div>
-                <div className="grid gap-3">
-                  <Label>Preferred reply</Label>
-                  <RadioGroup
-                    className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
-                    value={prefChannel}
-                    onValueChange={(v: "phone" | "whatsapp" | "sms" | "email") => setPrefChannel(v)}
-                    aria-label="Preferred reply method"
-                  >
-                    <div className="flex items-center gap-2 rounded-md border bg-secondary/50 px-3 py-2">
-                      <RadioGroupItem id="pref-whatsapp" value="whatsapp" />
-                      <Label htmlFor="pref-whatsapp" className="flex items-center gap-1 cursor-pointer">
-                        <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                        WhatsApp
-                      </Label>
-                    </div>
-                    <div className="flex items-center gap-2 rounded-md border bg-secondary/50 px-3 py-2">
-                      <RadioGroupItem id="pref-sms" value="sms" />
-                      <Label htmlFor="pref-sms" className="cursor-pointer">SMS</Label>
-                    </div>
-                    <div className="flex items-center gap-2 rounded-md border bg-secondary/50 px-3 py-2">
-                      <RadioGroupItem id="pref-phone" value="phone" />
-                      <Label htmlFor="pref-phone" className="flex items-center gap-1 cursor-pointer">
-                        <Phone className="h-4 w-4" aria-hidden="true" />
-                        Phone
-                      </Label>
-                    </div>
-                    <div className="flex items-center gap-2 rounded-md border bg-secondary/50 px-3 py-2">
-                      <RadioGroupItem id="pref-email" value="email" />
-                      <Label htmlFor="pref-email" className="flex items-center gap-1 cursor-pointer">
-                        <Mail className="h-4 w-4" aria-hidden="true" />
-                        Email
-                      </Label>
-                    </div>
-                  </RadioGroup>
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="message">How can we help?</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder="Write your question or describe the issue"
-                    className="bg-card"
-                    required
-                    aria-required="true"
-                  />
-                </div>
-                <div className="flex items-center justify-between gap-3 flex-wrap">
-                  <p className="text-sm text-muted-foreground">{responseTime}</p>
-                  <Button type="submit" disabled={submitting} className="bg-primary text-primary-foreground">
-                    {submitting ? "Sending…" : "Send message"}
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="text-center p-4 rounded-lg bg-card border hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-primary">24h</div>
+            <div className="text-sm text-muted-foreground">Response Time</div>
+          </div>
+          <div className="text-center p-4 rounded-lg bg-card border hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-primary">{languages.length}+</div>
+            <div className="text-sm text-muted-foreground">Languages</div>
+          </div>
+          <div className="text-center p-4 rounded-lg bg-card border hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-primary">99%</div>
+            <div className="text-sm text-muted-foreground">Satisfaction</div>
+          </div>
+          <div className="text-center p-4 rounded-lg bg-card border hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-primary">24/7</div>
+            <div className="text-sm text-muted-foreground">Emergency</div>
+          </div>
+        </div>
 
-          <Card className="bg-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PhoneCall className="h-5 w-5 text-primary" aria-hidden="true" />
-                Quick contacts
-              </CardTitle>
-              <CardDescription>Reach us directly via WhatsApp, SMS, phone, or email.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-4">
+        {/* Main Contact Section */}
+        <div className="grid gap-8 lg:grid-cols-3 max-w-7xl mx-auto">
+          {/* Contact Form - Takes 2 columns */}
+          <div className="lg:col-span-2">
+            <Card className="bg-card/50 backdrop-blur-sm border-2 shadow-lg">
+              <CardHeader className="pb-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Send className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">Send us a message</CardTitle>
+                    <CardDescription className="text-base">
+                      Fill out the form below and we'll get back to you using your preferred method
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <form onSubmit={onSubmit} className="space-y-6" noValidate>
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-sm font-medium">Full name *</Label>
+                      <Input 
+                        id="name" 
+                        name="name" 
+                        placeholder="Enter your full name" 
+                        required 
+                        className="h-11 bg-background border-2 focus:border-primary transition-colors" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="contact" className="text-sm font-medium">Contact information *</Label>
+                      <Input
+                        id="contact"
+                        name="contact"
+                        placeholder="Phone number or email address"
+                        required
+                        className="h-11 bg-background border-2 focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Preferred contact method</Label>
+                    <RadioGroup
+                      className="grid grid-cols-2 gap-3"
+                      value={prefChannel}
+                      onValueChange={(v: "phone" | "whatsapp" | "sms" | "email") => setPrefChannel(v)}
+                    >
+                      {[
+                        { value: "whatsapp", label: "WhatsApp", icon: MessageCircle, color: "bg-green-50 border-green-200 text-green-700" },
+                        { value: "email", label: "Email", icon: Mail, color: "bg-blue-50 border-blue-200 text-blue-700" },
+                        { value: "phone", label: "Phone Call", icon: Phone, color: "bg-purple-50 border-purple-200 text-purple-700" },
+                        { value: "sms", label: "SMS", icon: MessageCircle, color: "bg-orange-50 border-orange-200 text-orange-700" }
+                      ].map(({ value, label, icon: Icon, color }) => (
+                        <div key={value} className={cn(
+                          "flex items-center gap-3 rounded-lg border-2 p-3 cursor-pointer transition-all hover:shadow-sm",
+                          prefChannel === value ? color : "bg-card border-border hover:border-primary/50"
+                        )}>
+                          <RadioGroupItem id={`pref-${value}`} value={value} />
+                          <Label htmlFor={`pref-${value}`} className="flex items-center gap-2 cursor-pointer flex-1">
+                            <Icon className="h-4 w-4" />
+                            {label}
+                          </Label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-sm font-medium">How can we help you? *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      rows={5}
+                      placeholder="Describe your question or issue in detail..."
+                      required
+                      className="bg-background border-2 focus:border-primary transition-colors resize-none"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4 pt-4 border-t">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4" />
+                      {responseTime}
+                    </div>
+                    <Button 
+                      type="submit" 
+                      disabled={submitting} 
+                      className="h-11 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
+                    >
+                      {submitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Quick Contact Sidebar */}
+          <div className="space-y-6">
+            {/* Instant Contact */}
+            <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <PhoneCall className="h-5 w-5 text-primary" />
+                  Instant Contact
+                </CardTitle>
+                <CardDescription>Get immediate assistance</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
                 <a
                   href={waLink}
-                  className="flex items-center justify-between rounded-md border bg-secondary px-4 py-3 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label={`Open WhatsApp chat at ${whatsappNumber}`}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-green-50 border border-green-200 hover:bg-green-100 transition-colors group"
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <MessageCircle className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
-                    <div className="min-w-0">
-                      <div className="font-medium truncate">WhatsApp</div>
-                      <div className="text-sm text-muted-foreground truncate break-words">{whatsappNumber}</div>
-                    </div>
+                  <div className="p-2 rounded-full bg-green-500 text-white">
+                    <MessageCircle className="h-4 w-4" />
                   </div>
-                  <QrCode className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-                </a>
-
-                <a
-                  href={smsLink}
-                  className="flex items-center justify-between rounded-md border bg-secondary px-4 py-3 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label={`Send SMS to ${supportPhone}`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <Phone className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
-                    <div className="min-w-0">
-                      <div className="font-medium truncate">SMS</div>
-                      <div className="text-sm text-muted-foreground truncate break-words">{supportPhone}</div>
-                    </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-green-800">WhatsApp</div>
+                    <div className="text-sm text-green-600 truncate">{whatsappNumber}</div>
                   </div>
+                  <Badge variant="secondary" className="bg-green-100 text-green-700">
+                    Online
+                  </Badge>
                 </a>
 
                 <a
                   href={telLink}
-                  className="flex items-center justify-between rounded-md border bg-secondary px-4 py-3 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label={`Call ${supportPhone}`}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-blue-50 border border-blue-200 hover:bg-blue-100 transition-colors group"
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <PhoneCall className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
-                    <div className="min-w-0">
-                      <div className="font-medium truncate">Call</div>
-                      <div className="text-sm text-muted-foreground truncate break-words">{supportPhone}</div>
-                    </div>
+                  <div className="p-2 rounded-full bg-blue-500 text-white">
+                    <Phone className="h-4 w-4" />
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-blue-800">Call Now</div>
+                    <div className="text-sm text-blue-600 truncate">{supportPhone}</div>
+                  </div>
+                  <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                    Live
+                  </Badge>
                 </a>
 
                 <a
                   href={`mailto:${supportEmail}`}
-                  className="flex items-center justify-between rounded-md border bg-secondary px-4 py-3 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label={`Email ${supportEmail}`}
+                  className="flex items-center gap-3 p-3 rounded-lg bg-purple-50 border border-purple-200 hover:bg-purple-100 transition-colors group"
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <Mail className="h-5 w-5 text-primary shrink-0" aria-hidden="true" />
-                    <div className="min-w-0">
-                      <div className="font-medium truncate">Email</div>
-                      <div className="text-sm text-muted-foreground truncate break-words">{supportEmail}</div>
-                    </div>
+                  <div className="p-2 rounded-full bg-purple-500 text-white">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-purple-800">Email</div>
+                    <div className="text-sm text-purple-600 truncate">{supportEmail}</div>
                   </div>
                 </a>
+              </CardContent>
+            </Card>
+
+            {/* Emergency Contact */}
+            <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg text-red-800">
+                  <CircleQuestionMark className="h-5 w-5 text-red-600" />
+                  Emergency
+                </CardTitle>
+                <CardDescription className="text-red-700">For urgent medical situations</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <p className="text-sm text-red-700">
+                    For life-threatening emergencies, call your local emergency number immediately.
+                  </p>
+                  <a
+                    href={`tel:${emergencyPhone}`}
+                    className="flex items-center justify-center gap-2 w-full p-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
+                  >
+                    <Phone className="h-4 w-4" />
+                    Emergency: {emergencyPhone}
+                  </a>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Support Hours */}
+            <Card>
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Clock className="h-5 w-5 text-primary" />
+                  Support Hours
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                    <span className="text-sm font-medium text-green-700">Currently Online</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {supportHours}
+                  </p>
+                  <div className="pt-2 border-t">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Globe className="h-4 w-4" />
+                      Available in {languages.length} languages
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Additional Information Sections */}
+        <div className="grid gap-8 lg:grid-cols-2 max-w-7xl mx-auto">
+          {/* Location & Access */}
+          <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary" />
+                Location & Access
+              </CardTitle>
+              <CardDescription>Visit us in person or use alternative access methods</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center gap-2">
+                  <Mailbox className="h-4 w-4 text-primary" />
+                  Physical Address
+                </h4>
+                <address className="not-italic text-sm text-muted-foreground leading-relaxed pl-6">
+                  {addressLines.map((line, i) => (
+                    <div key={i} className="break-words">{line}</div>
+                  ))}
+                </address>
               </div>
 
               <Separator />
 
-              <div className="grid gap-2">
-                <div className="text-sm font-medium">Support hours</div>
-                <div className="text-sm text-muted-foreground">{supportHours}</div>
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center gap-2">
+                  <QrCode className="h-4 w-4 text-primary" />
+                  Alternative Access
+                </h4>
+                <div className="space-y-3 text-sm text-muted-foreground">
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
+                    <MessageCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium text-foreground">WhatsApp Quick Start</div>
+                      <div>Save {whatsappNumber} and send "Hello" to begin</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
+                    <Phone className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium text-foreground">SMS Support</div>
+                      <div>Text "HELP" to {supportPhone} for basic assistance</div>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
+                    <Shield className="h-4 w-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium text-foreground">Offline Access</div>
+                      <div>Ask local health workers to connect via QR code</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Language & Accessibility */}
+          <Card className="bg-card/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Languages className="h-5 w-5 text-primary" />
+                Language & Accessibility
+              </CardTitle>
+              <CardDescription>Customize your experience for better accessibility</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-3">
+                <h4 className="font-medium">Available Languages</h4>
+                <div className="flex flex-wrap gap-2">
+                  {languages.map((lang) => (
+                    <Badge key={lang} variant="secondary" className="text-xs">
+                      {lang}
+                    </Badge>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Don't see your language? Contact us and we'll do our best to assist you.
+                </p>
               </div>
 
-              <div className="rounded-md border bg-muted/40 p-3">
-                <div className="flex items-start gap-2">
-                  <CircleQuestionMark className="h-5 w-5 text-destructive mt-0.5" aria-hidden="true" />
-                  <div className="min-w-0">
-                    <div className="font-medium">Emergency</div>
-                    <p className="text-sm text-muted-foreground">
-                      For urgent medical emergencies, call your local emergency number immediately.
-                    </p>
-                    <a
-                      href={`tel:${emergencyPhone}`}
-                      className="mt-1 inline-flex items-center gap-2 rounded-md bg-destructive px-3 py-1.5 text-sm text-destructive-foreground hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                      aria-label={`Call emergency ${emergencyPhone}`}
+              <Separator />
+
+              <div className="space-y-4">
+                <h4 className="font-medium">Accessibility Options</h4>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 rounded-lg border bg-card">
+                    <div className="space-y-1">
+                      <div className="font-medium text-sm">Larger Text</div>
+                      <div className="text-xs text-muted-foreground">Increase text size for easier reading</div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setLargeText((v) => !v)}
+                      className={cn(
+                        "relative inline-flex h-6 w-11 items-center rounded-full transition-colors",
+                        largeText ? "bg-primary" : "bg-muted"
+                      )}
                     >
-                      <Phone className="h-4 w-4" aria-hidden="true" />
-                      {emergencyPhone}
-                    </a>
+                      <span
+                        className={cn(
+                          "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                          largeText ? "translate-x-6" : "translate-x-1"
+                        )}
+                      />
+                    </button>
+                  </div>
+
+                  <div className="flex items-center justify-between p-3 rounded-lg border bg-card">
+                    <div className="space-y-1">
+                      <div className="font-medium text-sm">High Contrast</div>
+                      <div className="text-xs text-muted-foreground">Enhance contrast for better visibility</div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setHighContrast((v) => !v)}
+                      className={cn(
+                        "relative inline-flex h-6 w-11 items-center rounded-full transition-colors",
+                        highContrast ? "bg-primary" : "bg-muted"
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                          highContrast ? "translate-x-6" : "translate-x-1"
+                        )}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -283,196 +492,62 @@ export default function ContactSupport({
           </Card>
         </div>
 
-        <Card className="bg-card">
+        {/* FAQ Section */}
+        <Card className="max-w-7xl mx-auto bg-card/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Mailbox className="h-5 w-5 text-primary" aria-hidden="true" />
-              Address & access
+              <CircleQuestionMark className="h-5 w-5 text-primary" />
+              Frequently Asked Questions
             </CardTitle>
-            <CardDescription>Visit us or try alternative access methods if connectivity is limited.</CardDescription>
+            <CardDescription>Quick answers to common questions</CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-3">
-              <div className="text-sm font-medium">Physical address</div>
-              <address className="not-italic text-sm text-muted-foreground leading-relaxed">
-                {addressLines.map((line, i) => (
-                  <div key={i} className="break-words">{line}</div>
-                ))}
-              </address>
-            </div>
+          <CardContent>
+            <Accordion type="multiple" className="w-full">
+              <AccordionItem value="faq-1" className="border-b">
+                <AccordionTrigger className="text-left hover:text-primary">
+                  Is the chatbot a replacement for professional medical advice?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  No, our AI chatbot provides general health information and guidance only. It should never replace professional medical advice, diagnosis, or treatment. For serious health concerns or emergencies, always consult with qualified healthcare professionals.
+                </AccordionContent>
+              </AccordionItem>
+              
+              <AccordionItem value="faq-2" className="border-b">
+                <AccordionTrigger className="text-left hover:text-primary">
+                  Can I use the service without internet connection?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  While full features require internet, you can use SMS for basic health tips by texting "HELP" to {supportPhone}. WhatsApp also works with limited bandwidth for essential communication.
+                </AccordionContent>
+              </AccordionItem>
 
-            <div className="space-y-3">
-              <div className="text-sm font-medium">Alternative access</div>
-              <ul className="text-sm text-muted-foreground space-y-2">
-                <li className="break-words">
-                  • Save our WhatsApp number and send "Hello" to start: {whatsappNumber}
-                </li>
-                <li className="break-words">
-                  • SMS keyword "HELP" to {supportPhone} for basic tips without internet.
-                </li>
-                <li className="break-words">
-                  • Ask a local health worker to scan this QR in their app to connect:
-                  <span className="inline-flex items-center gap-1 rounded-md border bg-secondary px-2 py-1 ml-2">
-                    <QrCode className="h-4 w-4" aria-hidden="true" />
-                    WhatsApp
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
+              <AccordionItem value="faq-3" className="border-b">
+                <AccordionTrigger className="text-left hover:text-primary">
+                  How is my personal health information protected?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  We follow strict privacy and security protocols. Your personal information is encrypted and never shared without your explicit consent. For sensitive health matters, we recommend using phone consultation for added privacy.
+                </AccordionContent>
+              </AccordionItem>
 
-        <Card className="bg-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Languages className="h-5 w-5 text-primary" aria-hidden="true" />
-              Language & accessibility
-            </CardTitle>
-            <CardDescription>Use the options below to improve readability and communication.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-3">
-              <div className="text-sm font-medium">Available languages</div>
-              <p className="text-sm text-muted-foreground break-words">
-                {languages.join(", ")}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                If your language is not listed, contact us and we’ll try to assist.
-              </p>
-            </div>
+              <AccordionItem value="faq-4" className="border-b">
+                <AccordionTrigger className="text-left hover:text-primary">
+                  What should I do if I'm not getting responses?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  First, check your internet connection and ensure you've saved our contact details correctly. If using WhatsApp, send a simple "Hello" message to start. For persistent issues, try SMS backup or call us directly at {supportPhone}.
+                </AccordionContent>
+              </AccordionItem>
 
-            <div className="space-y-4">
-              <div className="text-sm font-medium">Accessibility options</div>
-              <div className="flex items-center justify-between rounded-md border bg-secondary px-3 py-2">
-                <div className="min-w-0">
-                  <div className="font-medium text-sm">Larger text</div>
-                  <p className="text-xs text-muted-foreground">Increase text size for easier reading</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setLargeText((v) => !v)}
-                  aria-pressed={largeText}
-                  className={cn(
-                    "inline-flex h-8 items-center rounded-full px-2 transition-colors",
-                    largeText ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
-                  )}
-                >
-                  <span className={cn("px-2 py-1 rounded-full text-xs", largeText ? "bg-primary-foreground text-primary" : "bg-card")}>
-                    {largeText ? "On" : "Off"}
-                  </span>
-                </button>
-              </div>
-
-              <div className="flex items-center justify-between rounded-md border bg-secondary px-3 py-2">
-                <div className="min-w-0">
-                  <div className="font-medium text-sm">High contrast</div>
-                  <p className="text-xs text-muted-foreground">Boost contrast for better visibility</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setHighContrast((v) => !v)}
-                  aria-pressed={highContrast}
-                  className={cn(
-                    "inline-flex h-8 items-center rounded-full px-2 transition-colors",
-                    highContrast ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
-                  )}
-                >
-                  <span className={cn("px-2 py-1 rounded-full text-xs", highContrast ? "bg-primary-foreground text-primary" : "bg-card")}>
-                    {highContrast ? "On" : "Off"}
-                  </span>
-                </button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-card">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CircleQuestionMark className="h-5 w-5 text-primary" aria-hidden="true" />
-              Help center
-            </CardTitle>
-            <CardDescription>Find quick answers, troubleshooting steps, and guides.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <Tabs defaultValue="faq">
-              <TabsList className="grid grid-cols-3 w-full">
-                <TabsTrigger value="faq">FAQ</TabsTrigger>
-                <TabsTrigger value="troubleshoot">Troubleshoot</TabsTrigger>
-                <TabsTrigger value="access">Access methods</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="faq" className="mt-4">
-                <Accordion type="multiple" className="w-full">
-                  <AccordionItem value="faq-1">
-                    <AccordionTrigger className="text-left">Is the chatbot a replacement for a doctor?</AccordionTrigger>
-                    <AccordionContent>
-                      No. The chatbot provides general health information and guidance. For diagnosis or emergencies, contact a licensed health professional.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="faq-2">
-                    <AccordionTrigger className="text-left">Does it work without internet?</AccordionTrigger>
-                    <AccordionContent>
-                      You can use SMS for basic tips and WhatsApp for low-bandwidth messaging. Full features may require internet.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="faq-3">
-                    <AccordionTrigger className="text-left">How is my data protected?</AccordionTrigger>
-                    <AccordionContent>
-                      We follow strict privacy practices and never share personal details without consent. For sensitive matters, prefer phone contact.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="faq-4">
-                    <AccordionTrigger className="text-left">What languages are supported?</AccordionTrigger>
-                    <AccordionContent>
-                      Supported languages include: {languages.join(", ")}. Reach out if you need another language.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </TabsContent>
-
-              <TabsContent value="troubleshoot" className="mt-4">
-                <Accordion type="multiple" className="w-full">
-                  <AccordionItem value="t-1">
-                    <AccordionTrigger className="text-left">I’m not receiving WhatsApp replies</AccordionTrigger>
-                    <AccordionContent>
-                      - Check you have saved our number correctly and sent a greeting like "Hello".{" "}
-                      - Ensure your data connection is on.{" "}
-                      - If still stuck, send SMS "HELP" to {supportPhone}.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="t-2">
-                    <AccordionTrigger className="text-left">Messages fail due to poor signal</AccordionTrigger>
-                    <AccordionContent>
-                      Try moving to higher ground or near a window. Use SMS as a backup. If possible, call us directly at {supportPhone}.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="t-3">
-                    <AccordionTrigger className="text-left">I forgot a previous instruction</AccordionTrigger>
-                    <AccordionContent>
-                      Send "MENU" on WhatsApp to receive quick options. For printed guides, visit the health center front desk.
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="t-4">
-                    <AccordionTrigger className="text-left">The site text is too small</AccordionTrigger>
-                    <AccordionContent>
-                      Use the Larger text option above, or zoom in using your device settings. You can also contact us for phone guidance.
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </TabsContent>
-
-              <TabsContent value="access" className="mt-4">
-                <div className="space-y-3 text-sm text-muted-foreground">
-                  <p className="break-words">
-                    • WhatsApp: Open {waLink} and send "Hello" to start. Save {whatsappNumber} for future use.
-                  </p>
-                  <p className="break-words">• SMS: Text "HELP" to {supportPhone} for quick tips.</p>
-                  <p className="break-words">• Phone: Call us at {supportPhone} for live assistance during support hours.</p>
-                  <p>• Email: Send details to {supportEmail}. Attach photos if helpful.</p>
-                </div>
-              </TabsContent>
-            </Tabs>
+              <AccordionItem value="faq-5">
+                <AccordionTrigger className="text-left hover:text-primary">
+                  Is support available in my local language?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  We currently support {languages.join(", ")}. If your language isn't listed, please contact us anyway - we're continuously expanding our language support and may be able to assist you through translation services.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </CardContent>
         </Card>
       </div>
