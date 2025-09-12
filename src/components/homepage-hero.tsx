@@ -72,7 +72,7 @@ export default function HomepageHero({
     {
       role: "assistant",
       content:
-      "Hi! I'm Vitual AI. How can I help you with your health question today?"
+      "Hi! I'm Vital AI. How can I help you with your health question today?"
     }]
   );
   const [input, setInput] = React.useState("");
@@ -123,12 +123,7 @@ export default function HomepageHero({
   return (
     <section
       aria-labelledby="homepage-hero-heading"
-      className="!w-full !h-full"
-
-
-
-
-
+      className="w-full h-full"
       style={style}>
 
       {/* Decorative subtle gradient glow */}
@@ -140,10 +135,10 @@ export default function HomepageHero({
         <div className="absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-chart-2/30 blur-3xl" />
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-12 !w-full !h-full">
+      <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12 w-full">
         {/* Textual lead + CTAs */}
-        <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 ring-1 ring-border !w-[194px] !h-5">
+        <div className="flex min-w-0 flex-col gap-5 sm:gap-6 order-1 lg:order-1">
+          <div className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 ring-1 ring-border w-fit">
             <span className="inline-block h-2 w-2 rounded-full bg-chart-1 animate-pulse" aria-hidden="true" />
             <span className="text-xs font-medium text-accent-foreground">
               Free, safe, and easy to use
@@ -153,11 +148,10 @@ export default function HomepageHero({
           <div className="min-w-0">
             <h1
               id="homepage-hero-heading"
-              className="text-2xl font-bold leading-snug tracking-[-0.02em] sm:text-3xl md:text-4xl lg:text-5xl">
-
+              className="text-2xl font-bold leading-snug tracking-[-0.02em] sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl">
               {headline}
             </h1>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-4">
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-4 max-w-2xl">
               {subheadline}
             </p>
           </div>
@@ -166,9 +160,8 @@ export default function HomepageHero({
             <Button
               aria-label="Start your health journey"
               size="lg"
-              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring sm:!w-56 !h-full"
+              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring"
               onClick={onStart}>
-
               Start Your Health Journey
             </Button>
             <Button
@@ -178,41 +171,39 @@ export default function HomepageHero({
               className="w-full sm:w-auto"
               onClick={onChat}
               asChild>
-
               <a href="#chat">
-                <MessageCircleQuestionMark className="mr-2 h-5 w-5" aria-hidden="true" />
+                <MessageCircleQuestionMark className="mr-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 Chat Now
               </a>
             </Button>
           </div>
 
           {/* Value propositions */}
-          <ul className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 !w-[573px] !h-[155px]" aria-label="Key benefits">
-            {values.slice(0, 6).map((item, idx) => {
+          <ul className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 w-full" aria-label="Key benefits">
+            {values.slice(0, 4).map((item, idx) => {
               const Icon = item.icon;
               return (
                 <li
                   key={`${item.title}-${idx}`}
-                  className="group flex items-start gap-3 rounded-lg bg-card p-3 ring-1 ring-border transition-shadow hover:shadow-sm focus-within:shadow-sm !w-[278px] !h-[73px]">
-
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-accent text-accent-foreground ring-1 ring-border">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  className="group flex items-start gap-3 rounded-lg bg-card p-3 ring-1 ring-border transition-shadow hover:shadow-sm focus-within:shadow-sm w-full">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-md bg-accent text-accent-foreground ring-1 ring-border">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                   </div>
-                  <div className="min-w-0">
-                    <p className="font-medium leading-tight">{item.title}</p>
-                    <p className="text-sm text-muted-foreground leading-snug">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium leading-tight text-sm sm:text-base">{item.title}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-snug mt-1">
                       {item.description}
                     </p>
                   </div>
-                </li>);
-
+                </li>
+              );
             })}
           </ul>
         </div>
 
         {/* In-page Chat Widget (replaces device mockups) */}
-        <div className="relative min-w-0" id="chat">
-          <div className="relative mx-auto w-full max-w-md sm:max-w-lg">
+        <div className="relative min-w-0 order-2 lg:order-2" id="chat">
+          <div className="relative mx-auto w-full max-w-md lg:max-w-lg">
             <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
               <div className="flex items-center justify-between gap-2 border-b px-4 py-3 bg-muted/40">
                 <div className="flex items-center gap-2 min-w-0">
@@ -220,14 +211,14 @@ export default function HomepageHero({
                     <MessageCircleQuestionMark className="h-4 w-4" aria-hidden="true" />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold truncate">Vitual AI</p>
+                    <p className="text-sm font-semibold truncate">Vital AI</p>
                     <p className="text-[11px] text-muted-foreground truncate">Public health assistant</p>
                   </div>
                 </div>
-                <span className="text-[10px] text-muted-foreground !whitespace-pre-line"></span>
+                <span className="text-[10px] text-muted-foreground"></span>
               </div>
 
-              <div className="overflow-y-auto bg-muted/30 px-3 py-3 space-y-2 !w-[99.6%] !h-[421px]">
+              <div className="overflow-y-auto bg-muted/30 px-3 py-3 space-y-2 h-64 sm:h-80 lg:h-96">
                 {messages.map((m, i) =>
                 <div
                   key={i}
@@ -237,7 +228,6 @@ export default function HomepageHero({
                     "bg-card ring-1 ring-border shadow-sm" :
                     "ml-auto bg-chart-2/30"
                   )}>
-
                     {m.content}
                   </div>
                 )}
@@ -280,7 +270,6 @@ export default function HomepageHero({
                   aria-label="Type your message"
                   className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                   placeholder="Type a message..." />
-
                 <Button type="submit" size="sm" className="gap-1" disabled={loading}>
                   <MessageCircleQuestionMark className="h-4 w-4" aria-hidden="true" />
                   Send

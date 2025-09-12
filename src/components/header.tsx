@@ -53,14 +53,14 @@ export default function Header({
             <Link
               href="/"
               className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label="Vitual AI - Home"
+              aria-label="Vital AI - Home"
             >
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-secondary text-primary ring-1 ring-border">
                 <Hospital aria-hidden="true" className="h-5 w-5" />
               </span>
               <span className="flex flex-col leading-tight min-w-0">
                 <span className="font-heading text-base sm:text-lg font-semibold text-foreground truncate">
-                  Vitual AI
+                  Vital AI
                 </span>
                 <span className="text-[11px] sm:text-xs text-muted-foreground truncate">
                   Trusted public health support
@@ -125,7 +125,7 @@ export default function Header({
                       <Hospital aria-hidden="true" className="h-5 w-5" />
                     </span>
                     <span className="font-heading text-lg">
-                      Vitual AI
+                      Vital AI
                     </span>
                   </SheetTitle>
                 </SheetHeader>

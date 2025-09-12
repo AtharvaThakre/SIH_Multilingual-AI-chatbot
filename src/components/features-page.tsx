@@ -253,23 +253,22 @@ export default function FeaturesPageSection({
           aria-label="Feature categories">
 
           <div className="border-b border-border/80 px-3 sm:px-4 pt-3 sm:pt-4">
-            <TabsList className="justify-start gap-1 overflow-x-auto rounded-md bg-secondary p-1 sm:p-1.5 !w-full !h-[62px] !max-w-full">
+            <TabsList className="justify-start gap-1 overflow-x-auto rounded-md bg-secondary p-1 sm:p-1.5 w-full h-auto max-w-full">
               {features.map((f) => {
                 const Icon = f.icon;
                 return (
                   <TabsTrigger
                     key={f.id}
                     value={f.id}
-                    className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:bg-card/60 text-foreground whitespace-nowrap min-w-0 !w-[197px] !h-[49px]"
+                    className="data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm hover:bg-card/60 text-foreground whitespace-nowrap min-w-0 flex-shrink-0 px-3 py-2 text-xs sm:text-sm"
                     aria-controls={`${f.id}-content`}>
-
                     <span className="flex items-center gap-2">
                       <Icon className="size-4 shrink-0" aria-hidden="true" />
-                      <span className="hidden sm:inline !w-[135px] !h-full !whitespace-pre-line !whitespace-pre-line !whitespace-pre-line">{f.title}</span>
+                      <span className="hidden sm:inline">{f.title}</span>
                       <span className="sm:hidden">{f.title.split(" ")[0]}</span>
                     </span>
-                  </TabsTrigger>);
-
+                  </TabsTrigger>
+                );
               })}
             </TabsList>
           </div>

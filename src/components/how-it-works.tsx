@@ -48,7 +48,6 @@ function ChatMockup() {
     <div
       aria-label="Example chat screen"
       className="relative mx-auto w-full max-w-[420px] rounded-[1.25rem] bg-card shadow-sm ring-1 ring-border">
-
       <div className="flex items-center justify-between rounded-t-[1.25rem] border-b border-border bg-secondary/60 px-4 py-3">
         <div className="h-2 w-16 rounded-full bg-muted" aria-hidden="true" />
         <div className="flex gap-1.5" aria-hidden="true">
@@ -63,14 +62,14 @@ function ChatMockup() {
           <div className="shrink-0 rounded-full bg-accent p-2 text-primary/80" aria-hidden="true">
             <MessageSquare className="h-4 w-4" />
           </div>
-          <div className="rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-sm leading-snug text-foreground/90 !w-[290px] !h-full">
+          <div className="rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-sm leading-snug text-foreground/90 w-full max-w-[290px]">
             I have a fever. What should I do?
           </div>
         </div>
 
         <div className="flex justify-end">
-          <div className="rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-sm leading-snug text-primary-foreground shadow-sm !whitespace-pre-line !whitespace-pre-line !whitespace-pre-line !w-[235px] !h-full !max-w-[235px] !whitespace-pre-line">I have a fever what should I do?
-
+          <div className="rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-sm leading-snug text-primary-foreground shadow-sm max-w-[85%]">
+            I have a fever what should I do?
           </div>
         </div>
 
@@ -84,7 +83,7 @@ function ChatMockup() {
           <div className="shrink-0 rounded-full bg-accent p-2 text-primary/80" aria-hidden="true">
             <FileQuestionMark className="h-4 w-4" />
           </div>
-          <div className="max-w-[85%] space-y-1.5">
+          <div className="max-w-[85%] space-y-1.5 flex-1">
             <div className="rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-sm leading-snug text-foreground/90">
               If you have chest pain or trouble breathing:
             </div>
@@ -105,8 +104,8 @@ function ChatMockup() {
       </div>
 
       <div className="pointer-events-none absolute inset-0 rounded-[1.25rem] ring-1 ring-black/0 transition-[box-shadow,transform] duration-200" />
-    </div>);
-
+    </div>
+  );
 }
 
 export default function HowItWorksSection({
@@ -133,7 +132,7 @@ export default function HowItWorksSection({
         </p>
       </div>
 
-      <div className="mx-auto mt-6 grid max-w-5xl grid-cols-1 gap-4 sm:mt-8 md:grid-cols-4 md:gap-5">
+      <div className="mx-auto mt-6 grid max-w-5xl grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
         {steps.map((step, idx) => {
           const Icon = step.icon;
           return (
@@ -142,41 +141,38 @@ export default function HowItWorksSection({
               role="listitem"
               aria-label={`${idx + 1}. ${step.title}`}
               className="group relative rounded-xl bg-card p-4 shadow-sm ring-1 ring-border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-within:shadow-md">
-
               {/* Connector lines */}
-              {idx < steps.length - 1 ?
-              <>
-                  {/* Horizontal connector for md+ */}
+              {idx < steps.length - 1 ? (
+                <>
+                  {/* Horizontal connector for lg+ */}
                   <div
-                  className="pointer-events-none absolute right-0 top-1/2 hidden h-px w-4 -translate-y-1/2 translate-x-full bg-border md:block"
-                  aria-hidden="true" />
-
+                    className="pointer-events-none absolute right-0 top-1/2 hidden h-px w-4 -translate-y-1/2 translate-x-full bg-border lg:block"
+                    aria-hidden="true" />
                   {/* Vertical connector for mobile */}
                   <div
-                  className="pointer-events-none absolute bottom-0 left-1/2 h-4 w-px translate-y-full -translate-x-1/2 bg-border md:hidden"
-                  aria-hidden="true" />
-
-                </> :
-              null}
+                    className="pointer-events-none absolute bottom-0 left-1/2 h-4 w-px translate-y-full -translate-x-1/2 bg-border lg:hidden"
+                    aria-hidden="true" />
+                </>
+              ) : null}
 
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground ring-1 ring-border transition-colors group-hover:bg-accent/90">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground ring-1 ring-border transition-colors group-hover:bg-accent/90">
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-secondary px-2 text-xs font-medium text-secondary-foreground ring-1 ring-border">
+                    <span className="inline-flex h-5 min-w-5 sm:h-6 sm:min-w-6 items-center justify-center rounded-full bg-secondary px-2 text-xs font-medium text-secondary-foreground ring-1 ring-border">
                       {idx + 1}
                     </span>
-                    <h3 className="truncate text-base font-semibold">{step.title}</h3>
+                    <h3 className="truncate text-sm sm:text-base font-semibold">{step.title}</h3>
                   </div>
-                  <p className="mt-1 break-words text-sm text-muted-foreground">
+                  <p className="mt-1 break-words text-xs sm:text-sm text-muted-foreground">
                     {step.description}
                   </p>
                 </div>
               </div>
-            </div>);
-
+            </div>
+          );
         })}
       </div>
 

@@ -110,7 +110,17 @@ body {
 }
 .container {
 margin-inline: auto;
-padding-inline: 2rem;
+padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: 2rem;
+  }
 }
 }
 @layer base {
@@ -162,4 +172,59 @@ font-family: var(--font-heading);
 /* Hide Next.js error overlay portal */
 nextjs-portal {
   display: none !important;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 640px) {
+  /* Improved touch targets for mobile */
+  button, .button, a[role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .grid {
+    gap: 1rem;
+  }
+  
+  /* Ensure text is readable on mobile */
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Better form inputs on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Improve card layouts on mobile */
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Better modal/sheet sizing */
+  [role="dialog"] {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+/* Tablet responsive improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Optimize for tablet viewing */
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Better spacing for tablets */
+  .container {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }
