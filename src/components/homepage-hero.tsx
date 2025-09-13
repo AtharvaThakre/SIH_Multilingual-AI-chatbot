@@ -103,6 +103,7 @@ export default function HomepageHero({
 
       const data = await res.json();
       if (!res.ok) {
+        console.error("Chat API Error:", data);
         throw new Error(data?.error || "Failed to get response");
       }
 
@@ -113,8 +114,21 @@ export default function HomepageHero({
       setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
       setFollowUps(fups.slice(0, 3));
       setYesNoQ(yesNo);
-    } catch (err) {
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I am having trouble connecting to the health service. Please try again later." }]);
+    } catch (err: any) {
+      console.error("Client-side chat error:", err);
+      let errorMessage = "Sorry, I'm having trouble connecting to the health service. ";
+      
+      if (err.message?.includes("API configuration")) {
+        errorMessage += "The service is not properly configured. Please contact support.";
+      } else if (err.message?.includes("Network")) {
+        errorMessage += "Please check your internet connection and try again.";
+      } else if (err.message?.includes("temporarily unavailable")) {
+        errorMessage += "The service is busy right now. Please try again in a few minutes.";
+      } else {
+        errorMessage += "Please try again later.";
+      }
+      
+      setMessages((prev) => [...prev, { role: "assistant", content: errorMessage }]);
     } finally {
       setLoading(false);
     }

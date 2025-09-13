@@ -21,18 +21,21 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       console.error("GEMINI_API_KEY is not set in environment variables");
+      console.error("Available env vars:", Object.keys(process.env).filter(key => key.includes('API')));
       return NextResponse.json(
-        { error: "API configuration error. Please contact support." },
+        { error: "API configuration error. Please set GEMINI_API_KEY environment variable." },
         { status: 500 }
       );
     }
+
+    console.log("Attempting to connect to Gemini API...");
 
     // Initialize Gemini AI
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction:
-        "You are a helpful and friendly AI assistant for health-related questions. Your goal is to provide accurate and easy-to-understand information. Do not answer any questions that are not related to health. If a question is not related to health, simply say: I am a health assistant and I cannot answer that question.",
+        "You are Vital AI, a helpful and friendly multilingual health assistant. Your goal is to provide accurate and easy-to-understand health information for communities, especially in rural and semi-urban areas. You can communicate in multiple languages including English, Hindi, Bengali, and other Indian languages. Always prioritize safety and recommend consulting healthcare professionals for serious concerns. Keep responses clear, practical, and culturally sensitive.",
     });
 
     // Generate content
@@ -45,6 +48,8 @@ export async function POST(req: NextRequest) {
       throw new Error("Empty response from AI model");
     }
 
+    console.log("Successfully generated response");
+
     return NextResponse.json({ 
       text,
       success: true 
@@ -56,28 +61,44 @@ export async function POST(req: NextRequest) {
       message: error.message,
       stack: error.stack,
       name: error.name,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      errorCode: error.code,
+      status: error.status
     });
 
-    // Return user-friendly error message
-    if (error.message?.includes('API_KEY')) {
+    // Return user-friendly error message based on error type
+    if (error.message?.includes('API_KEY') || error.message?.includes('authentication')) {
       return NextResponse.json(
-        { error: "API configuration error. Please contact support." },
+        { error: "API configuration error. Please set up your GEMINI_API_KEY." },
         { status: 500 }
       );
     }
 
-    if (error.message?.includes('quota') || error.message?.includes('limit')) {
+    if (error.message?.includes('quota') || error.message?.includes('limit') || error.status === 429) {
       return NextResponse.json(
         { error: "Service temporarily unavailable due to high demand. Please try again in a few minutes." },
         { status: 429 }
       );
     }
 
-    if (error.message?.includes('network') || error.message?.includes('fetch')) {
+    if (error.message?.includes('network') || error.message?.includes('fetch') || error.code === 'NETWORK_ERROR') {
       return NextResponse.json(
         { error: "Network connection issue. Please check your internet and try again." },
         { status: 503 }
+      );
+    }
+
+    if (error.status === 403) {
+      return NextResponse.json(
+        { error: "API access denied. Please check your API key permissions." },
+        { status: 403 }
+      );
+    }
+
+    if (error.status === 400) {
+      return NextResponse.json(
+        { error: "Invalid request. Please try rephrasing your question." },
+        { status: 400 }
       );
     }
 
