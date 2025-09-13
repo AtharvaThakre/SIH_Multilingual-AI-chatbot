@@ -53,6 +53,33 @@ to { height: 0; }
 --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 --font-heading: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+/* Full Screen 3D Scene Styles */
+.spline-fullscreen {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.spline-fullscreen canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Ensure proper viewport handling */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Remove any default margins/padding that might interfere */
+#__next, main {
+  min-height: 100vh;
+  width: 100%;
+}
 @layer base {
 *,
 ::after,
@@ -227,4 +254,43 @@ nextjs-portal {
 img {
   max-width: 100%;
   height: auto;
+}
+
+/* Spline scene responsive adjustments */
+.spline-scene {
+  position: relative;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.05), hsl(var(--secondary) / 0.1));
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.spline-scene canvas {
+  border-radius: inherit;
+}
+
+/* Loading state for Spline scenes */
+.spline-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, hsl(var(--muted) / 0.5), hsl(var(--muted) / 0.3));
+  border-radius: inherit;
+  z-index: 10;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Mobile-specific Spline adjustments */
+@media (max-width: 640px) {
+  .spline-scene {
+    height: 250px !important;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .spline-scene {
+    height: 300px !important;
+  }
 }
