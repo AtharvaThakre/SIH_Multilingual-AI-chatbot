@@ -5,7 +5,7 @@ import ErrorReporter from "@/components/ErrorReporter";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Vital AI - Multilingual Health Assistant",
+  title: "Vital AI",
   description: "Accessible health information for every community. A trustworthy AI health assistant for rural and semi-urban families with multilingual support.",
   viewport: "width=device-width, initial-scale=1.0, viewport-fit=cover",
   themeColor: "#1f2b48",
