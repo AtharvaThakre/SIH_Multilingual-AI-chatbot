@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import SplineScene from "./SplineScene";
+import ChatbotWidget from "./chatbot-widget";
 
 export interface HomepageHeroProps {
   className?: string;
@@ -27,6 +28,9 @@ export default function HomepageHero({
           width="100vw"
         />
       </div>
+
+      {/* Chatbot Widget */}
+      <ChatbotWidget />
 
     </section>
   );

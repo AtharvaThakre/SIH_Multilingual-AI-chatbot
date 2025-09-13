@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MessageSquare, MessageSquareText, Clock4, FileQuestionMark, SeparatorHorizontal } from "lucide-react";
+import { MessageSquare, MessageSquareText, Clock4 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Step = {
@@ -27,6 +27,12 @@ const defaultSteps: Step[] = [
   id: "advice",
   title: "Get clear advice",
   description: "Receive easy, step‑by‑step guidance.",
+  icon: MessageSquare
+},
+{
+  id: "advice",
+  title: "Get clear advice",
+  description: "Receive easy, step‑by‑step guidance.",
   icon: MessageSquareText
 },
 {
@@ -34,79 +40,8 @@ const defaultSteps: Step[] = [
   title: "Set reminders",
   description: "Never miss medicine or checkups.",
   icon: Clock4
-},
-{
-  id: "emergency",
-  title: "Emergency info",
-  description: "Know what to do and who to call.",
-  icon: FileQuestionMark
 }];
 
-
-function ChatMockup() {
-  return (
-    <div
-      aria-label="Example chat screen"
-      className="relative mx-auto w-full max-w-[420px] rounded-[1.25rem] bg-card shadow-sm ring-1 ring-border">
-      <div className="flex items-center justify-between rounded-t-[1.25rem] border-b border-border bg-secondary/60 px-4 py-3">
-        <div className="h-2 w-16 rounded-full bg-muted" aria-hidden="true" />
-        <div className="flex gap-1.5" aria-hidden="true">
-          <span className="h-2 w-2 rounded-full bg-muted" />
-          <span className="h-2 w-2 rounded-full bg-muted" />
-          <span className="h-2 w-2 rounded-full bg-muted" />
-        </div>
-      </div>
-
-      <div className="space-y-2.5 p-4">
-        <div className="flex max-w-[85%] items-end gap-2">
-          <div className="shrink-0 rounded-full bg-accent p-2 text-primary/80" aria-hidden="true">
-            <MessageSquare className="h-4 w-4" />
-          </div>
-          <div className="rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-sm leading-snug text-foreground/90 w-full max-w-[290px]">
-            I have a fever. What should I do?
-          </div>
-        </div>
-
-        <div className="flex justify-end">
-          <div className="rounded-2xl rounded-tr-sm bg-primary px-3 py-2 text-sm leading-snug text-primary-foreground shadow-sm max-w-[85%]">
-            I have a fever what should I do?
-          </div>
-        </div>
-
-        <div className="flex justify-end">
-          <div className="max-w-[70%] rounded-full bg-accent px-3 py-1.5 text-xs text-accent-foreground shadow-sm">
-            Reminder set: Check temperature at 6pm
-          </div>
-        </div>
-
-        <div className="flex items-start gap-2">
-          <div className="shrink-0 rounded-full bg-accent p-2 text-primary/80" aria-hidden="true">
-            <FileQuestionMark className="h-4 w-4" />
-          </div>
-          <div className="max-w-[85%] space-y-1.5 flex-1">
-            <div className="rounded-2xl rounded-tl-sm bg-muted px-3 py-2 text-sm leading-snug text-foreground/90">
-              If you have chest pain or trouble breathing:
-            </div>
-            <div className="rounded-lg bg-secondary px-3 py-2 text-xs leading-snug text-foreground">
-              • Call local emergency number 108{" "}
-              <span className="text-muted-foreground">(India)</span>
-              <br />• Go to the nearest clinic immediately
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-2">
-          <div className="flex items-center gap-2 rounded-full border border-input bg-background/60 px-3 py-2">
-            <span className="text-xs text-muted-foreground">Type your message…</span>
-            <div className="ml-auto h-6 w-12 rounded-full bg-primary/10" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 rounded-[1.25rem] ring-1 ring-black/0 transition-[box-shadow,transform] duration-200" />
-    </div>
-  );
-}
 
 export default function HowItWorksSection({
   className,
@@ -176,19 +111,9 @@ export default function HowItWorksSection({
         })}
       </div>
 
-      <div className="mx-auto mt-8 max-w-5xl sm:mt-10">
-        <div className="mb-3 flex items-center justify-center gap-2 text-center text-xs text-muted-foreground sm:text-sm">
-          <SeparatorHorizontal className="h-4 w-4 opacity-60" aria-hidden="true" />
-          <span>See an example conversation</span>
-          <SeparatorHorizontal className="h-4 w-4 opacity-60" aria-hidden="true" />
-        </div>
-        <ChatMockup />
-      </div>
-
       <div className="mx-auto mt-6 max-w-3xl text-center">
         <p className="text-xs text-muted-foreground sm:text-sm">
-          Your privacy is protected. The chatbot gives information, not a diagnosis. For serious symptoms, contact a
-          medical professional.
+          
         </p>
       </div>
     </section>);
