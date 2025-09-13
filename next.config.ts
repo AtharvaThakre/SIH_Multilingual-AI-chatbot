@@ -13,10 +13,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Remove problematic configurations that might cause build issues
-  experimental: {
-    serverComponentsExternalPackages: ['@google/generative-ai']
-  }
+  // Updated configuration for Next.js 15
+  serverExternalPackages: ['@google/generative-ai']
 };
 
 export default nextConfig;

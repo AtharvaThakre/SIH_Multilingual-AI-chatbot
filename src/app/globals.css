@@ -70,6 +70,32 @@ to { height: 0; }
   display: block;
 }
 
+/* Glass morphism header styles */
+.glass-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+  max-width: calc(100% - 32px);
+}
+
+/* Floating header animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.floating-header {
+  animation: float 6s ease-in-out infinite;
+}
+
 /* Ensure proper viewport handling */
 html, body {
   overflow-x: hidden;
