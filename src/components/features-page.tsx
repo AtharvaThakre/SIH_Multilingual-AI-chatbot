@@ -57,7 +57,7 @@ const features: Feature[] = [
 },
 {
   id: "symptoms",
-  title: "Disease Symptom Identification",
+  title: "Disease Identification",
   description:
   "Conversational triage that helps users describe symptoms and understand possible conditions, with clear guidance on when to seek urgent care and what information to share with a clinician.",
   icon: SquareDivide,
@@ -286,71 +286,6 @@ export default function FeaturesPageSection({
         </Tabs>
       </div>
 
-      <div className="mt-8 sm:mt-10">
-        <div className="mb-4 sm:mb-6">
-          <div className="inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
-            <span className="inline-flex size-4 items-center justify-center rounded-full bg-primary/10 text-primary">
-              <MessageCircleQuestionMark className="size-3.5" aria-hidden="true" />
-            </span>
-            Frequently Asked Questions
-          </div>
-          <h3 className="mt-3 text-xl sm:text-2xl font-heading">
-            Get quick answers
-          </h3>
-          <p className="mt-1 text-sm sm:text-base text-muted-foreground max-w-2xl">
-            Clear, straightforward information to help you use the chatbot with confidence.
-          </p>
-        </div>
-
-        <div className="w-full max-w-full rounded-lg bg-card ring-1 ring-border">
-          <Accordion type="single" collapsible className="w-full max-w-full divide-y divide-border">
-            <AccordionItem value="what-is-it">
-              <AccordionTrigger className="px-4 sm:px-6 py-4 text-left">
-                What does the chatbot do?
-              </AccordionTrigger>
-              <AccordionContent className="px-4 sm:px-6 pb-4 text-sm text-foreground">
-                It provides preventive health tips, helps identify symptoms, tracks vaccination schedules, sends verified outbreak alerts, and connects you with official programs and clinics. It works in multiple languages with clear, simple explanations.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="data-safety">
-              <AccordionTrigger className="px-4 sm:px-6 py-4 text-left">
-                Is my information safe?
-              </AccordionTrigger>
-              <AccordionContent className="px-4 sm:px-6 pb-4 text-sm text-foreground">
-                We follow strict privacy practices and only use information to provide the requested guidance. For official services, we display government-sourced data and clearly indicate when you are viewing external program information.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="medical-advice">
-              <AccordionTrigger className="px-4 sm:px-6 py-4 text-left">
-                Is this a replacement for a doctor?
-              </AccordionTrigger>
-              <AccordionContent className="px-4 sm:px-6 pb-4 text-sm text-foreground">
-                No. The chatbot supports education and navigation. For emergencies or severe symptoms, it advises urgent care and helps you communicate key details to a healthcare professional.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="languages">
-              <AccordionTrigger className="px-4 sm:px-6 py-4 text-left">
-                Which languages are supported?
-              </AccordionTrigger>
-              <AccordionContent className="px-4 sm:px-6 pb-4 text-sm text-foreground">
-                The chatbot supports multiple Indian languages and dialects. You can switch language anytime during the conversation. Availability may expand over time based on community needs.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="connectivity">
-              <AccordionTrigger className="px-4 sm:px-6 py-4 text-left">
-                Does it work with limited internet?
-              </AccordionTrigger>
-              <AccordionContent className="px-4 sm:px-6 pb-4 text-sm text-foreground">
-                The experience is optimized for low-bandwidth and mobile devices. Some features like real-time alerts require connectivity; the chatbot gracefully degrades and provides essential guidance whenever possible.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </div>
     </section>);
 
 }

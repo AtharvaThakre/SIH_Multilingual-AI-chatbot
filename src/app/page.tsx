@@ -9,14 +9,12 @@ import Footer from "@/components/footer";
 export default function Page() {
   return (
     <div className="min-h-dvh flex flex-col bg-background text-foreground">
-      <Header className="sticky top-0 z-50" />
+      <Header />
 
       <main className="flex-1 w-full">
-        {/* Hero */}
-        <section id="home" className="container mx-auto px-4 py-8 sm:py-10 md:py-12 lg:py-16">
-          <div className="grid gap-6">
-            <HomepageHero />
-          </div>
+        {/* Hero - Full screen with 3D model */}
+        <section id="home" className="w-full h-screen">
+          <HomepageHero />
         </section>
 
         {/* How it works */}

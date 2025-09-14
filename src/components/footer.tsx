@@ -44,10 +44,6 @@ export default function Footer({ className = "", style }: FooterProps) {
                   <FileHeart className="h-4 w-4" aria-hidden="true" />
                   Verified health info
                 </span>
-                <span className={pillBase} aria-label="Healthcare partner">
-                  <Hospital className="h-4 w-4" aria-hidden="true" />
-                  Public health partner
-                </span>
                 <span className={pillBase} aria-label="Privacy by design">
                   <Heart className="h-4 w-4" aria-hidden="true" />
                   Privacy by design
@@ -84,126 +80,6 @@ export default function Footer({ className = "", style }: FooterProps) {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Emergency and quick help */}
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="col-span-1 rounded-xl bg-destructive/10 p-4 ring-1 ring-destructive/20">
-            <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-destructive text-destructive-foreground">
-                <PhoneCall className="h-5 w-5" aria-hidden="true" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground">Emergency</p>
-                <p className="text-sm text-muted-foreground">
-                  If you or someone is in immediate danger, call your local emergency number.
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  <a
-                    href="tel:112"
-                    className="inline-flex items-center rounded-md bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-sm transition-colors hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-destructive/10"
-                    aria-label="Call emergency number 112"
-                  >
-                    112
-                  </a>
-                  <a
-                    href="tel:911"
-                    className="inline-flex items-center rounded-md bg-card px-3 py-1.5 text-xs font-medium text-foreground ring-1 ring-border transition-colors hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-destructive/10"
-                    aria-label="Call emergency number 911"
-                  >
-                    911
-                  </a>
-                  <a
-                    href="tel:988"
-                    className="inline-flex items-center rounded-md bg-card px-3 py-1.5 text-xs font-medium text-foreground ring-1 ring-border transition-colors hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-destructive/10"
-                    aria-label="Call mental health crisis line 988"
-                  >
-                    988
-                  </a>
-                </div>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  Numbers vary by region. Use the number listed in your area if different.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-span-1 rounded-xl bg-card p-4 ring-1 ring-border">
-            <p className="text-sm font-semibold text-foreground">Quick health resources</p>
-            <ul className="mt-2 space-y-2">
-              <li>
-                <a
-                  href="https://www.who.int/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkBase}
-                >
-                  WHO: Health information
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.unicef.org/health"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkBase}
-                >
-                  UNICEF: Community health
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.google.com/maps/search/hospital"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkBase}
-                >
-                  Find nearby hospitals
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="col-span-1 rounded-xl bg-card p-4 ring-1 ring-border">
-            <p className="text-sm font-semibold text-foreground">Contact and support</p>
-            <ul className="mt-2 space-y-2">
-              <li className="min-w-0">
-                <a href="/contact" className={linkBase}>
-                  Contact/Support
-                </a>
-              </li>
-              <li className="min-w-0">
-                <a href="mailto:support@example.org" className={linkBase} aria-label="Email support at support@example.org">
-                  Email: support@example.org
-                </a>
-              </li>
-              <li>
-                <a href="tel:+18005551234" className={linkBase} aria-label="Call support at +1 800 555 1234">
-                  Phone: +1 800 555 1234
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://wa.me/18005551234"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkBase}
-                  aria-label="Chat on WhatsApp"
-                >
-                  WhatsApp support
-                </a>
-              </li>
-              <li>
-                <a
-                  href="sms:+18005551234"
-                  className={linkBase}
-                  aria-label="Send SMS to support at +1 800 555 1234"
-                >
-                  SMS: +1 800 555 1234
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
 
@@ -286,10 +162,6 @@ export default function Footer({ className = "", style }: FooterProps) {
                 <Contact className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                 <span className="text-sm text-muted-foreground">Field workers program</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Hospital className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-                <span className="text-sm text-muted-foreground">Clinic partnerships</span>
-              </li>
             </ul>
           </nav>
 
@@ -305,32 +177,6 @@ export default function Footer({ className = "", style }: FooterProps) {
               Language availability depends on your region. We’re working with public health partners to expand local
               languages for rural and semi-urban communities.
             </p>
-          </div>
-        </div>
-
-        <Separator className="my-8" />
-
-        {/* Partnerships row */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-foreground/90">In collaboration with public health initiatives</p>
-            <p className="text-xs text-muted-foreground">
-              Partnerships with local health departments and community organizations.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-2 rounded-md bg-card px-3 py-1.5 ring-1 ring-border">
-              <Hospital className="h-4 w-4 text-accent-foreground" aria-hidden="true" />
-              <span className="text-xs font-medium text-foreground/90">Govt Health Program</span>
-            </div>
-            <div className="flex items-center gap-2 rounded-md bg-card px-3 py-1.5 ring-1 ring-border">
-              <FileHeart className="h-4 w-4 text-accent-foreground" aria-hidden="true" />
-              <span className="text-xs font-medium text-foreground/90">Community Care Network</span>
-            </div>
-            <div className="flex items-center gap-2 rounded-md bg-card px-3 py-1.5 ring-1 ring-border">
-              <Heart className="h-4 w-4 text-accent-foreground" aria-hidden="true" />
-              <span className="text-xs font-medium text-foreground/90">Health Education Alliance</span>
-            </div>
           </div>
         </div>
 

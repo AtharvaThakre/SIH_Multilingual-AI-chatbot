@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(req: NextRequest) {
   try {
     // Parse request body
-    const { message } = await req.json();
+    const { message, messages = [] } = await req.json();
 
     // Validate message
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
@@ -35,11 +35,25 @@ export async function POST(req: NextRequest) {
     const model = genAI.getGenerativeModel({
       model: "gemini-2.0-flash-exp",
       systemInstruction:
-        "You are Vital AI, a helpful and friendly multilingual health assistant. Your goal is to provide accurate and easy-to-understand health information for communities, especially in rural and semi-urban areas. You can communicate in multiple languages including English, Hindi, Bengali, and other Indian languages. Always prioritize safety and recommend consulting healthcare professionals for serious concerns. Keep responses clear, practical, and culturally sensitive.",
+        "You are Vital AI, a helpful and friendly health assistant. Your goal is to provide accurate and easy-to-understand health information for communities, especially in rural and semi-urban areas.Keep responses clear, practical, and culturally sensitive. dont answer anything outside of health and wellbeing, if this happedens then just say I am here to assist with health-related inquiries. If you have any questions about health or wellbeing, I'm ready to help!",
     });
 
+    // Prepare conversation history for context
+    let conversationContext = "";
+    if (messages && messages.length > 0) {
+      conversationContext = messages
+        .filter((msg: any) => msg.role !== 'assistant' || msg.content !== 'Hi! I\'m your Vital AI health assistant. How can I help you today?')
+        .map((msg: any) => `${msg.role}: ${msg.content}`)
+        .join('\n');
+    }
+
+    // Create the full prompt with context
+    const fullPrompt = conversationContext 
+      ? `Previous conversation:\n${conversationContext}\n\nCurrent message: ${message.trim()}`
+      : message.trim();
+
     // Generate content
-    const result = await model.generateContent(message.trim());
+    const result = await model.generateContent(fullPrompt);
     const response = await result.response;
     const text = response.text();
 

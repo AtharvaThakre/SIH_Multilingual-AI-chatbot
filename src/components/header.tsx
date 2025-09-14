@@ -13,12 +13,11 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Menu, Hospital, MessageCircleQuestionMark } from "lucide-react";
+import { Menu, Hospital } from "lucide-react";
 
 type HeaderProps = {
   className?: string;
   showBlog?: boolean;
-  onChatClick?: () => void;
 };
 
 const NAV_ITEMS = [
@@ -31,7 +30,6 @@ const NAV_ITEMS = [
 export default function Header({
   className,
   showBlog = true,
-  onChatClick,
 }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
@@ -41,13 +39,15 @@ export default function Header({
   return (
     <header
       className={cn(
-        "w-full bg-card/90 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b",
+        "mx-4 mt-4 max-w-7xl left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-md supports-[backdrop-filter]:bg-white/5 border border-white/20",
+        "shadow-lg shadow-black/5 rounded-2xl floating-header",
         className
       )}
       role="banner"
+      style={{ position: 'fixed', zIndex: 50 }}
     >
-      <div className="container mx-auto">
-        <div className="flex items-center justify-between gap-3 py-3 sm:py-4">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between gap-3 py-2 sm:py-3">
           {/* Left: Brand */}
           <div className="flex items-center gap-2 min-w-0">
             <Link
@@ -55,14 +55,14 @@ export default function Header({
               className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               aria-label="Vital AI - Home"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-secondary text-primary ring-1 ring-border">
-                <Hospital aria-hidden="true" className="h-5 w-5" />
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm text-gray-500 ring-1 ring-white/30">
+                <Hospital aria-hidden="true" className="h-4 w-4" />
               </span>
               <span className="flex flex-col leading-tight min-w-0">
-                <span className="font-heading text-base sm:text-lg font-semibold text-foreground truncate">
+                <span className="font-heading text-sm sm:text-base font-semibold text-gray-500 truncate">
                   Vital AI
                 </span>
-                <span className="text-[11px] sm:text-xs text-muted-foreground truncate">
+                <span className="text-[10px] sm:text-xs text-gray-500 truncate">
                   Trusted public health support
                 </span>
               </span>
@@ -83,11 +83,11 @@ export default function Header({
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    "px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                     active
-                      ? "text-primary bg-accent"
-                      : "text-foreground/80 hover:text-foreground hover:bg-muted"
+                      ? "text-gray-500 bg-white/20 backdrop-blur-sm"
+                      : "text-gray-500 hover:text-gray-500 hover:bg-white/10"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
@@ -97,17 +97,15 @@ export default function Header({
             })}
           </nav>
 
-          {/* Right: CTA + Mobile Menu */}
+          {/* Right: Mobile Menu */}
           <div className="flex items-center gap-2">
-            <CTAButton onChatClick={onChatClick} />
-
             {/* Mobile menu */}
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="outline"
                   size="icon"
-                  className="md:hidden shrink-0 bg-card"
+                  className="md:hidden shrink-0 bg-white/10 backdrop-blur-sm border-white/20 text-gray-500 hover:text-gray-500 hover:bg-white/20"
                   aria-label="Open menu"
                   aria-haspopup="dialog"
                   aria-expanded={open}
@@ -155,10 +153,6 @@ export default function Header({
                         </SheetClose>
                       );
                     })}
-
-                    <div className="px-2 pt-2">
-                      <CTAButton onChatClick={onChatClick} fullWidth />
-                    </div>
                   </nav>
                 </div>
               </SheetContent>
@@ -167,54 +161,5 @@ export default function Header({
         </div>
       </div>
     </header>
-  );
-}
-
-function CTAButton({
-  onChatClick,
-  fullWidth,
-}: {
-  onChatClick?: () => void;
-  fullWidth?: boolean;
-}) {
-  const content = (
-    <>
-      <MessageCircleQuestionMark
-        className="h-4 w-4 sm:h-5 sm:w-5"
-        aria-hidden="true"
-      />
-      <span className="text-sm sm:text-base">Chat Now</span>
-    </>
-  );
-
-  if (onChatClick) {
-    return (
-      <Button
-        onClick={onChatClick}
-        className={cn(
-          "gap-2 bg-primary text-primary-foreground hover:bg-primary/90",
-          fullWidth ? "w-full" : "w-auto"
-        )}
-        aria-label="Start chat now"
-      >
-        {content}
-      </Button>
-    );
-  }
-
-  // Default: link to in-page chat widget
-  return (
-    <Link href="#chat" className={fullWidth ? "w-full" : "w-auto"}>
-      <Button
-        type="button"
-        className={cn(
-          "gap-2 bg-primary text-primary-foreground hover:bg-primary/90 w-full",
-          fullWidth ? "w-full" : "w-auto"
-        )}
-        aria-label="Start chat now"
-      >
-        {content}
-      </Button>
-    </Link>
   );
 }

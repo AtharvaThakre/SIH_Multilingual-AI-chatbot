@@ -100,10 +100,7 @@ export default function ContactSupport({
       <div className="relative z-10 grid gap-8">
         {/* Enhanced Header */}
         <header className="text-center space-y-4 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-            <MessageCircle className="h-4 w-4" />
-            24/7 Support Available
-          </div>
+          
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
             Get in Touch
           </h2>
@@ -301,57 +298,7 @@ export default function ContactSupport({
               </CardContent>
             </Card>
 
-            {/* Emergency Contact */}
-            <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg text-red-800">
-                  <CircleQuestionMark className="h-5 w-5 text-red-600" />
-                  Emergency
-                </CardTitle>
-                <CardDescription className="text-red-700">For urgent medical situations</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <p className="text-sm text-red-700">
-                    For life-threatening emergencies, call your local emergency number immediately.
-                  </p>
-                  <a
-                    href={`tel:${emergencyPhone}`}
-                    className="flex items-center justify-center gap-2 w-full p-3 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-colors font-medium"
-                  >
-                    <Phone className="h-4 w-4" />
-                    Emergency: {emergencyPhone}
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Support Hours */}
-            <Card>
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Clock className="h-5 w-5 text-primary" />
-                  Support Hours
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                    <span className="text-sm font-medium text-green-700">Currently Online</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {supportHours}
-                  </p>
-                  <div className="pt-2 border-t">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Globe className="h-4 w-4" />
-                      Available in {languages.length} languages
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            
           </div>
         </div>
 
@@ -492,64 +439,7 @@ export default function ContactSupport({
           </Card>
         </div>
 
-        {/* FAQ Section */}
-        <Card className="max-w-7xl mx-auto bg-card/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <CircleQuestionMark className="h-5 w-5 text-primary" />
-              Frequently Asked Questions
-            </CardTitle>
-            <CardDescription>Quick answers to common questions</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Accordion type="multiple" className="w-full">
-              <AccordionItem value="faq-1" className="border-b">
-                <AccordionTrigger className="text-left hover:text-primary">
-                  Is the chatbot a replacement for professional medical advice?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  No, our AI chatbot provides general health information and guidance only. It should never replace professional medical advice, diagnosis, or treatment. For serious health concerns or emergencies, always consult with qualified healthcare professionals.
-                </AccordionContent>
-              </AccordionItem>
-              
-              <AccordionItem value="faq-2" className="border-b">
-                <AccordionTrigger className="text-left hover:text-primary">
-                  Can I use the service without internet connection?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  While full features require internet, you can use SMS for basic health tips by texting "HELP" to {supportPhone}. WhatsApp also works with limited bandwidth for essential communication.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="faq-3" className="border-b">
-                <AccordionTrigger className="text-left hover:text-primary">
-                  How is my personal health information protected?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  We follow strict privacy and security protocols. Your personal information is encrypted and never shared without your explicit consent. For sensitive health matters, we recommend using phone consultation for added privacy.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="faq-4" className="border-b">
-                <AccordionTrigger className="text-left hover:text-primary">
-                  What should I do if I'm not getting responses?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  First, check your internet connection and ensure you've saved our contact details correctly. If using WhatsApp, send a simple "Hello" message to start. For persistent issues, try SMS backup or call us directly at {supportPhone}.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="faq-5">
-                <AccordionTrigger className="text-left hover:text-primary">
-                  Is support available in my local language?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  We currently support {languages.join(", ")}. If your language isn't listed, please contact us anyway - we're continuously expanding our language support and may be able to assist you through translation services.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </CardContent>
-        </Card>
+        
       </div>
     </section>
   )

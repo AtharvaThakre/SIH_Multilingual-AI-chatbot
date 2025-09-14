@@ -6,11 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 
-type Partner = {
-  name: string
-  tag: string
-}
-
 type TeamMember = {
   name: string
   role: string
@@ -24,13 +19,6 @@ export interface AboutPageProps {
   style?: React.CSSProperties
   compact?: boolean
 }
-
-const partners: Partner[] = [
-  { name: "State Health Dept.", tag: "Govt. Partner" },
-  { name: "SevaCare Foundation", tag: "NGO" },
-  { name: "Rural Health India", tag: "NGO" },
-  { name: "Community Clinics Network", tag: "Alliance" },
-]
 
 const team: TeamMember[] = [
   {
@@ -51,7 +39,7 @@ const team: TeamMember[] = [
     name: "Priya Nair",
     role: "Program Lead",
     credentials: "MPH, Health Policy",
-    focus: "Field operations, partnerships",
+    focus: "Field operations, community programs",
     photo: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop",
   },
   {
@@ -99,10 +87,6 @@ export default function AboutPage({
                   <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-border">
                     <Users className="h-4 w-4" aria-hidden="true" />
                     Built with community input
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-border">
-                    <Hospital className="h-4 w-4" aria-hidden="true" />
-                    Govt. & NGO partnerships
                   </span>
                   <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-border">
                     <Smartphone className="h-4 w-4" aria-hidden="true" />
@@ -168,34 +152,6 @@ export default function AboutPage({
         </div>
       </div>
 
-      {/* Origin Story */}
-      <div className="mt-8 sm:mt-10">
-        <Card className="bg-card ring-1 ring-border overflow-hidden">
-          <div className="grid grid-cols-1 gap-0 md:grid-cols-5">
-            <div className="md:col-span-3 p-6 sm:p-8">
-              <CardTitle className="text-xl sm:text-2xl">Our Origin</CardTitle>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed break-words">
-                Our team began by shadowing community health workers across remote blocks. We saw long queues for
-                simple queries, mothers traveling hours for basic guidance, and frontline workers stretched thin.
-                The pattern was clear: early, reliable information—delivered in local languages on ubiquitous
-                devices—could prevent complications and reduce travel burdens.
-              </p>
-              <p className="mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed break-words">
-                We partnered with district health officials and NGOs to co-design a chatbot that mirrors
-                government protocols, respects cultural contexts, and connects people to the nearest appropriate
-                care. Today, we continue to iterate with field feedback and clinical oversight.
-              </p>
-            </div>
-            <div className="md:col-span-2 relative min-h-[200px] md:min-h-full">
-              <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&auto=format&fit=crop"
-                alt="Community health workers collaborating in a rural clinic"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-        </Card>
-      </div>
 
       {/* Technology Overview */}
       <div className="mt-8 sm:mt-10">
@@ -252,49 +208,6 @@ export default function AboutPage({
             </div>
           </CardContent>
         </Card>
-      </div>
-
-      {/* Team & Partners */}
-      <div className="mt-8 sm:mt-10">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-1">
-          {/* Partners */}
-          <Card className="bg-card ring-1 ring-border">
-            <CardHeader className="p-6 sm:p-8">
-              <div className="flex items-center gap-3">
-                <Hospital className="h-6 w-6 text-primary" aria-hidden="true" />
-                <div>
-                  <CardTitle className="text-xl sm:text-2xl">Partners</CardTitle>
-                  <CardDescription className="text-sm">
-                    Government bodies and accredited NGOs
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="p-6 sm:p-8 pt-0">
-              <ul className="space-y-3">
-                {partners.map((p) => (
-                  <li key={p.name} className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-secondary text-secondary-foreground ring-1 ring-border">
-                      <span className="text-sm font-semibold" aria-hidden="true">
-                        {getInitials(p.name)}
-                      </span>
-                    </div>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-medium">{p.name}</p>
-                      <p className="text-xs text-muted-foreground">{p.tag}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4 rounded-md bg-secondary/60 p-3 ring-1 ring-border">
-                <p className="text-xs text-muted-foreground">
-                  We sign data protection addendums with all partners and follow government clinical protocols.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </section>
   )
