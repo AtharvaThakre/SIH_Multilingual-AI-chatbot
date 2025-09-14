@@ -44,7 +44,7 @@ export default function Header({
         className
       )}
       role="banner"
-      style={{ position: 'fixed', zIndex: 50 }}
+      style={{ position: 'fixed', zIndex: 60 }}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-3 py-2 sm:py-3">
