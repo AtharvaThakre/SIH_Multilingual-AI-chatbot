@@ -36,6 +36,28 @@ export default function Header({
 
   const items = NAV_ITEMS;
 
+  // Smooth scroll function for anchor links
+  const handleSmoothScroll = (href: string) => {
+    if (href === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (href.startsWith("#")) {
+      const element = document.querySelector(href);
+      if (element) {
+        const headerHeight = 80; // Account for fixed header
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    }
+  };
+
   return (
     <header
       className={cn(
@@ -78,21 +100,42 @@ export default function Header({
               const active = item.href === "/"
                 ? pathname === "/"
                 : false; // anchors don't get pathname active
+              
+              // Use Link for home page, button for smooth scroll anchors
+              if (item.href === "/") {
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                      "active:scale-95 hover:scale-105",
+                      active
+                        ? "text-gray-500 bg-white/20 backdrop-blur-sm"
+                        : "text-gray-500 hover:text-gray-500 hover:bg-white/10"
+                    )}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              }
+
               return (
-                <Link
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => handleSmoothScroll(item.href)}
                   className={cn(
-                    "px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors",
+                    "px-2.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                    active
-                      ? "text-gray-500 bg-white/20 backdrop-blur-sm"
-                      : "text-gray-500 hover:text-gray-500 hover:bg-white/10"
+                    "active:scale-95 hover:scale-105",
+                    "text-gray-500 hover:text-gray-500 hover:bg-white/10"
                   )}
                   aria-current={active ? "page" : undefined}
                 >
                   {item.name}
-                </Link>
+                </button>
               );
             })}
           </nav>
@@ -135,21 +178,43 @@ export default function Header({
                   >
                     {items.map((item) => {
                       const active = item.href === "/" ? pathname === "/" : false;
+                      
+                      // Use Link for home page, button for smooth scroll anchors
+                      if (item.href === "/") {
+                        return (
+                          <SheetClose asChild key={item.name}>
+                            <Link
+                              href={item.href}
+                              className={cn(
+                                "w-full text-left px-3 py-3 rounded-md text-base transition-all duration-200",
+                                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                                "active:scale-95",
+                                active
+                                  ? "text-primary bg-accent"
+                                  : "text-foreground/90 hover:text-foreground hover:bg-muted"
+                              )}
+                              aria-current={active ? "page" : undefined}
+                            >
+                              {item.name}
+                            </Link>
+                          </SheetClose>
+                        );
+                      }
+
                       return (
                         <SheetClose asChild key={item.name}>
-                          <Link
-                            href={item.href}
+                          <button
+                            onClick={() => handleSmoothScroll(item.href)}
                             className={cn(
-                              "w-full text-left px-3 py-3 rounded-md text-base",
+                              "w-full text-left px-3 py-3 rounded-md text-base transition-all duration-200",
                               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                              active
-                                ? "text-primary bg-accent"
-                                : "text-foreground/90 hover:text-foreground hover:bg-muted"
+                              "active:scale-95",
+                              "text-foreground/90 hover:text-foreground hover:bg-muted"
                             )}
                             aria-current={active ? "page" : undefined}
                           >
                             {item.name}
-                          </Link>
+                          </button>
                         </SheetClose>
                       );
                     })}
